@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    title Teachbase Client
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = csrf_meta_tags
+    = action_cable_meta_tag
+    = favicon_link_tag "apple-touch-icon.png",
+                         rel: "apple-touch-icon",
+                         sizes: "100x100",
+                         type: "image/png"
+  body
+    nav.navbar.navbar-default role="navigation"
+      .row
+        .col-md-8.col-md-offset-2
+          /! Brand and toggle get grouped for better mobile display
+          .navbar-header
+            = link_to 'Teachbase Client', root_path, class: 'navbar-brand'
+          ul.nav.navbar-nav.navbar-right
+            li= link_to 'guest', greet_guest_path
+            li= link_to 'member', greet_member_path
+            - if logged_in?
+              li
+                = link_to 'Logout', logout_path, method: :post
+              
+    .row
+      .col-md-7.col-md-offset-2
+        - if flash.keys.any?
+          - unless alert.nil?
+            .alert.alert-warning role="alert"
+              = alert
+          - unless notice.nil?
+            .alert.alert-success role="alert"
+              = notice
+
+        p session.id
+        p = session.id
+        p request.referrer
+        p = request.referrer
+        p session[:return_to_url]
+        p = session[:return_to_url]
+        p params[:key]
+        p = params[:key]
+        = yield
