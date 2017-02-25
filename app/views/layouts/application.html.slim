@@ -24,7 +24,7 @@ html
             li= link_to 'member', greet_member_path
             - if logged_in?
               li
-                = link_to 'Logout', logout_path, method: :post
+                / = link_to 'Logout', logout_path, method: :post
               
     .row
       .col-md-7.col-md-offset-2
@@ -38,10 +38,17 @@ html
 
         p session.id
         p = session.id
+        - if logged_in?
+          p username
+          p = current_user
         p request.referrer
         p = request.referrer
         p session[:return_to_url]
         p = session[:return_to_url]
-        p params[:key]
-        p = params[:key]
+        p equality
+        p = Redis.new.get('key') == params[:token]
+        p redis[:key]
+        p = Redis.new.get('key')
+        p params[:token]
+        p = @token
         = yield
