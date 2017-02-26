@@ -6,17 +6,20 @@ class ApplicationController < ActionController::Base
     redirect_to token_url
   end
 
+  def auth_app_url
+    'http://localhost:3000'
+  end
+
   private
   
   def token_url
-    "http://localhost:3000/token?key=#{public_key(rsa)}"
+    "#{auth_app_url}/token?key=#{public_key(rsa)}"
   end
 
   def login_from_session
     token = redis.get("token:#{session.id}")
     return false if token.blank?
     sso_login(token)
-    # User.sso_authenticate(token)
   end
   
   def login_from_other_sources

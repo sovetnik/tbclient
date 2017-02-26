@@ -24,7 +24,7 @@ html
             li= link_to 'member', greet_member_path
             - if logged_in?
               li
-                / = link_to 'Logout', logout_path, method: :post
+                = link_to 'profile', profile_url
               
     .row
       .col-md-7.col-md-offset-2
@@ -36,6 +36,5 @@ html
             .alert.alert-success role="alert"
               = notice
 
-        p session.id
-        p = session.id
+        p session.id: #{session.id}
         = yield
