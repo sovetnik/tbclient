@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
       token = rebuilt_rsa.private_decrypt(
         Base64.urlsafe_decode64(params[:token])
       )
-    rescue RsaError
+    rescue 
       false
     else
       sso_login(token)
@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
       session[k.to_sym] = v
     end
     store_token(token)
+    session.delete(:return_to_url)
     @current_user = user
   end
  
@@ -50,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def store_private_key(key)
-    redis.setex("private_key:#{session.id}", 5, key)
+    redis.setex("private_key:#{session.id}", 120, key)
   end
 
   def restore_private_key
@@ -58,7 +59,7 @@ class ApplicationController < ActionController::Base
   end
 
   def store_token(token)
-    redis.setex("token:#{session.id}", 10, token)
+    redis.setex("token:#{session.id}", 60, token)
   end
 
   def public_key(pair)

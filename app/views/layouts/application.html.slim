@@ -38,17 +38,4 @@ html
 
         p session.id
         p = session.id
-        - if logged_in?
-          p username
-          p = current_user
-        p request.referrer
-        p = request.referrer
-        p session[:return_to_url]
-        p = session[:return_to_url]
-        p equality
-        p = Redis.new.get('key') == params[:token]
-        p redis[:key]
-        p = Redis.new.get('key')
-        p params[:token]
-        p = @token
         = yield
