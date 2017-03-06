@@ -1,5 +1,5 @@
 module ApplicationHelper
   def profile_url
-    "http://localhost:3000/profile"
+    "#{ENV['AUTH_URL']}/profile"
   end
 end

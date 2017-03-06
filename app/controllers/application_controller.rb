@@ -6,14 +6,10 @@ class ApplicationController < ActionController::Base
     redirect_to token_url
   end
 
-  def auth_app_url
-    'http://localhost:3000'
-  end
-
   private
   
   def token_url
-    "#{auth_app_url}/token?key=#{public_key(rsa)}"
+    "#{ENV['AUTH_URL']}/token?key=#{public_key(rsa)}"
   end
 
   def login_from_session
@@ -77,6 +73,6 @@ class ApplicationController < ActionController::Base
   end
 
   def redis
-    Redis.new # (db: 1)
+    Redis.new(url: ENV['REDIS_URL'])
   end
 end

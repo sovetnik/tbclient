@@ -1,24 +1,30 @@
 # README
 
+## Authentication client
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
 Things you may want to cover:
 
 * Ruby version
+2.4
 
 * System dependencies
+docker
 
 * Configuration
+create `dev.env` from `sample.env`run 
+```bash
+docker-compose up --build
+```
 
 * Database creation
+```bash
+docker-compose run app rails db:create
+```
 
 * Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+docker-compose run app rails db:migrate
+```
